@@ -18,8 +18,8 @@
                         <th>Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="(product, key) in products">
+                    <tbody>              
+                        <tr v-for="(product, key) in products" :key="product"> <!-- :key para vue poder reutilizar e reordenar array, poderia receber product.id também -->
                             <td>{{ key+1 }}</td>
                             <td>{{ product.name }}</td> 
                             <td>{{ product.description }}</td>
@@ -50,14 +50,14 @@
         },
         methods: {
             getProducts() {
-              this.axios.get('http://127.0.0.1:8000/api/products')
+              this.axios.get('/api/products')
                   .then(response => {
                       this.products = response.data;
                   });
             },
             deleteProduct(productId) {
                 this.axios
-                    .delete(`http://127.0.0.1:8000/api/products/${productId}`)
+                    .delete(`/api/products/${productId}`)
                     .then(response => {
                         let i = this.products.map(data => data.id).indexOf(productId);
                         this.products.splice(i, 1)

@@ -19,9 +19,9 @@
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="text" class="form-control" v-model="product.price">
+                        <input type="number" min="0" class="form-control" v-model="product.price">
                     </div>
-                    <button type="button" class="btn btn-primary" @click="updateProduct()"> Update </button>
+                    <button type="button" class="btn btn-primary" @click="updateProduct()">Update</button>
                 </form>
             </div>
         </div>
@@ -40,14 +40,15 @@
         },
         methods: {
             editProduct(productId) {
-                this.axios.get(`http://127.0.0.1:8000/api/products/${productId}`)
+                this.axios.
+                    get(`/api/products/${productId}`)
                    .then((res) => {
                        this.product = res.data;
                    });
             },
             updateProduct() {
                 this.axios
-                    .patch(`http://127.0.0.1:8000/api/products/${this.$route.params.productId}`, this.product)
+                    .patch(`/api/products/${this.$route.params.productId}`, this.product) 
                     .then((res) => {
                         this.$router.push({ name: 'ProductIndex' });
                     });

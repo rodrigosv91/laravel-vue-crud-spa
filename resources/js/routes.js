@@ -6,7 +6,14 @@ export const routes = [
     {
         path: '/products',
         component: ProductIndex,
-        name: "ProductIndex"
+        name: "ProductIndex",
+        // children: [
+        //     {
+        //       path: "product_edit_juntos",
+        //       component: ProductEdit,
+        //       name: "novaRotaProductEdit"
+        //     },
+        // ]        // carrega component "productEdit" dentro de <router-view> dentro de component "productIndex"
     },
     {
         path: '/products/create',

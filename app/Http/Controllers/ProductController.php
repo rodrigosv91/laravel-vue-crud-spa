@@ -12,7 +12,7 @@ class ProductController extends Controller
     {
         $products = Product::orderby('id', 'desc')->get();
         
-        return response()->json($products);
+        return response()->json($products); // response() = http response
     }
 
     public function store(Request $request)
@@ -33,15 +33,16 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
         $product = Product::find($id);
-        $product->update($request->all());
+        $product->update($request->all()); // query builder, not eloquent
 
         return response()->json([
             'status' => 'success',
             'post'   => $product
         ]);
+        //return response()->json('Product updated!');
     }
 
     public function destroy($id)

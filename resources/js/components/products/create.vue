@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="number" class="form-control" v-model="product.price">
+                        <input type="number" min="0" class="form-control" v-model="product.price">
                     </div>
                     <button type="button" class="btn btn-primary" @click="createProduct()">Create</button>
                 </form>
@@ -37,9 +37,9 @@
         },
         methods: {
             createProduct() {
-                this.axios.post('http://127.0.0.1:8000/api/products', this.product)
+                this.axios.post('/api/products', this.product)
                     .then(response => (
-                        this.$router.push({ name: 'ProductIndex' })
+                        this.$router.push({ name: 'ProductIndex' }) //redirect to ProductIndex
                     ))
                     .catch(err => console.log(err))
                     .finally(() => this.loading = false)

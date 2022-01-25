@@ -5332,10 +5332,11 @@ __webpack_require__.r(__webpack_exports__);
     createProduct: function createProduct() {
       var _this = this;
 
-      this.axios.post('http://127.0.0.1:8000/api/products', this.product).then(function (response) {
+      this.axios.post('/api/products', this.product).then(function (response) {
         return _this.$router.push({
           name: 'ProductIndex'
-        });
+        }) //redirect to ProductIndex
+        ;
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
@@ -5401,14 +5402,14 @@ __webpack_require__.r(__webpack_exports__);
     editProduct: function editProduct(productId) {
       var _this = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/products/".concat(productId)).then(function (res) {
+      this.axios.get("/api/products/".concat(productId)).then(function (res) {
         _this.product = res.data;
       });
     },
     updateProduct: function updateProduct() {
       var _this2 = this;
 
-      this.axios.patch("http://127.0.0.1:8000/api/products/".concat(this.$route.params.productId), this.product).then(function (res) {
+      this.axios.patch("/api/products/".concat(this.$route.params.productId), this.product).then(function (res) {
         _this2.$router.push({
           name: 'ProductIndex'
         });
@@ -5483,14 +5484,14 @@ __webpack_require__.r(__webpack_exports__);
     getProducts: function getProducts() {
       var _this = this;
 
-      this.axios.get('http://127.0.0.1:8000/api/products').then(function (response) {
+      this.axios.get('/api/products').then(function (response) {
         _this.products = response.data;
       });
     },
     deleteProduct: function deleteProduct(productId) {
       var _this2 = this;
 
-      this.axios["delete"]("http://127.0.0.1:8000/api/products/".concat(productId)).then(function (response) {
+      this.axios["delete"]("/api/products/".concat(productId)).then(function (response) {
         var i = _this2.products.map(function (data) {
           return data.id;
         }).indexOf(productId);
@@ -5604,7 +5605,14 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [{
   path: '/products',
   component: _components_products_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-  name: "ProductIndex"
+  name: "ProductIndex" // children: [
+  //     {
+  //       path: "product_edit_juntos",
+  //       component: ProductEdit,
+  //       name: "novaRotaProductEdit"
+  //     },
+  // ]        // carrega component "productEdit" dentro de <router-view> dentro de component "productIndex"
+
 }, {
   path: '/products/create',
   component: _components_products_create_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -28537,7 +28545,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "number" },
+              attrs: { type: "number", min: "0" },
               domProps: { value: _vm.product.price },
               on: {
                 input: function ($event) {
@@ -28680,7 +28688,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "text" },
+              attrs: { type: "number", min: "0" },
               domProps: { value: _vm.product.price },
               on: {
                 input: function ($event) {
@@ -28704,7 +28712,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._v(" Update ")]
+            [_vm._v("Update")]
           ),
         ]),
       ]),
@@ -28763,7 +28771,7 @@ var render = function () {
           _c(
             "tbody",
             _vm._l(_vm.products, function (product, key) {
-              return _c("tr", [
+              return _c("tr", { key: product }, [
                 _c("td", [_vm._v(_vm._s(key + 1))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(product.name))]),
